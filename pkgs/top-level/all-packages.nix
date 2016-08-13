@@ -17217,6 +17217,8 @@ in
 
   nixui = callPackage ../tools/package-management/nixui { node_webkit = nwjs_0_12; };
 
+  nixup = callPackage ../tools/package-management/nixup { };
+
   inherit (callPackages ../tools/package-management/nix-prefetch-scripts { })
     nix-prefetch-bzr
     nix-prefetch-cvs
