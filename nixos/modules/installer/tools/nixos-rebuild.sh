@@ -110,10 +110,20 @@ fi
 buildHostCmd() {
     if [ -z "$buildHost" ]; then
         "$@"
-    elif [ -n "$remoteNix" ]; then
-        ssh $SSHOPTS "$buildHost" PATH="$remoteNix:$PATH" "$@"
     else
-        ssh $SSHOPTS "$buildHost" "$@"
+        remotePATH=""
+        if [ -n "$remoteNix" ]; then
+            remotePATH="$remoteNix:$remotePATH"
+        fi
+        if [ -n "$remoteSSH" ]; then
+            remotePATH="$remoteSSH:$remotePATH"
+        fi
+
+        if [ -n "$remotePATH" ]; then
+            ssh $SSHOPTS "$buildHost" PATH="$remotePATH" "$@"
+        else
+            ssh $SSHOPTS "$buildHost" "$@"
+        fi
     fi
 }
 
@@ -322,6 +332,12 @@ if [ -n "$canRun" ]; then
     fi
 fi
 
+if [ -n "$buildHost" -a -n "$targetHost" ]; then
+    echo "building SSH client..."
+    sshDrv="$(nix-instantiate '<nixpkgs>' --add-root $tmpDir/ssh.drv --indirect -A openssh "${extraBuildFlags[@]}")"
+    nix-copy-closure --to "$buildHost" "$sshDrv"
+    remoteSSH="$(buildHostCmd nix-store -r "$(readlink "$sshDrv")" "${buildArgs[@]}")/bin"
+fi
 
 if [ "$action" = dry-build ]; then
     extraBuildFlags+=(--dry-run)
