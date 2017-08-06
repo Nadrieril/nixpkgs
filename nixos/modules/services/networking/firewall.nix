@@ -227,27 +227,6 @@ let
     ${cfg.extraStopCommands}
   '';
 
-  reloadScript = writeShScript "firewall-reload" ''
-    ${helpers}
-
-    # Create a unique drop rule
-    ip46tables -D INPUT -j nixos-drop 2>/dev/null || true
-    ip46tables -F nixos-drop 2>/dev/null || true
-    ip46tables -X nixos-drop 2>/dev/null || true
-    ip46tables -N nixos-drop
-    ip46tables -A nixos-drop -j DROP
-
-    # Don't allow traffic to leak out until the script has completed
-    ip46tables -A INPUT -j nixos-drop
-    if ${startScript}; then
-      ip46tables -D INPUT -j nixos-drop 2>/dev/null || true
-    else
-      echo "Failed to reload firewall... Stopping"
-      ${stopScript}
-      exit 1
-    fi
-  '';
-
 in
 
 {
@@ -532,13 +511,10 @@ in
       unitConfig.ConditionCapability = "CAP_NET_ADMIN";
       unitConfig.DefaultDependencies = false;
 
-      reloadIfChanged = true;
-
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart = "@${startScript} firewall-start";
-        ExecReload = "@${reloadScript} firewall-reload";
         ExecStop = "@${stopScript} firewall-stop";
       };
     };
