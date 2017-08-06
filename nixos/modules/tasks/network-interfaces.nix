@@ -924,9 +924,6 @@ in
       (flip map interfaces (i: {
         assertion = i.subnetMask == null;
         message = "The networking.interfaces.${i.name}.subnetMask option is defunct. Use prefixLength instead.";
-      })) ++ (flip map slaveIfs (i: {
-        assertion = i.ip4 == [ ] && i.ipAddress == null && i.ip6 == [ ] && i.ipv6Address == null;
-        message = "The networking.interfaces.${i.name} must not have any defined ips when it is a slave.";
       })) ++ [
         {
           assertion = cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
