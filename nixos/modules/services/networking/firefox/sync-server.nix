@@ -24,6 +24,7 @@ let
     public_url = ${cfg.publicUrl}
     ${optionalString (cfg.sqlUri != "") "sqluri = ${cfg.sqlUri}"}
     allow_new_users = ${boolToString cfg.allowNewUsers}
+    force_wsgi_environ = true
 
     [browserid]
     backend = tokenserver.verifiers.LocalVerifier
