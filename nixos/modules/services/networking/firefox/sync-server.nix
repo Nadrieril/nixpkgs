@@ -13,7 +13,7 @@ let
     overrides = ${cfg.privateConfig}
 
     [server:main]
-    use = egg:gunicorn
+    use = egg:Paste#http
     host = ${cfg.listen.address}
     port = ${toString cfg.listen.port}
 
@@ -137,7 +137,7 @@ in
   config = mkIf cfg.enable {
 
     systemd.services.syncserver = let
-      syncServerEnv = pkgs.python.withPackages(ps: with ps; [ syncserver gunicorn ]);
+      syncServerEnv = pkgs.python.withPackages(ps: with ps; [ syncserver pasteScript ]);
     in {
       after = [ "network.target" ];
       description = "Firefox Sync Server";
@@ -169,8 +169,7 @@ in
           chown ${cfg.user}:${cfg.group} ${defaultDbLocation}
         fi
       '';
-
-      serviceConfig.ExecStart = "${syncServerEnv}/bin/gunicorn --paste ${syncServerIni}";
+      serviceConfig.ExecStart = "${syncServerEnv}/bin/paster serve ${syncServerIni}";
     };
 
     users.extraUsers = optionalAttrs (cfg.user == "syncserver")
