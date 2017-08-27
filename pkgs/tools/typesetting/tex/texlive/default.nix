@@ -109,7 +109,7 @@ let
       tlName = urlName + "-${version}";
       fixedHash = fixedHashes.${tlName} or null; # be graceful about missing hashes
 
-      url = args.url or "${urlPrefix}/${urlName}.tar.xz";
+      url = if pname == "hyperref" then "http://mirror.ox.ac.uk/sites/ctan.org/systems/texlive/tlnet/archive/hyperref.tar.xz" else args.url or "${urlPrefix}/${urlName}.tar.xz";
       urlPrefix = args.urlPrefix or
         http://146.185.144.154/texlive-2016
         #http://lipa.ms.mff.cuni.cz/~cunav5am/nix/texlive-2016
