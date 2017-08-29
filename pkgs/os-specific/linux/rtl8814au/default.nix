@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ScrambledAuroras";
     repo = "rtl8814AU";
-    rev = "48b0c1514a84ed104d121aecd4245a44cafb97fb";
-    sha256 = "16igr39p1pcjp14f7rqgi89rv03qlxcffaqiwmf9823w69pjnfgx";
+    rev = "ccac303ca68e5c3465311bda9d29433aac894e42";
+    sha256 = "0v5ckpm4c6sqhn1kdgb0namw4a1chq16rbhzzxbjwj1rh1fk2mnn";
   };
 
   hardeningDisable = [ "pic" ];
