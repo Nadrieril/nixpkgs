@@ -25980,9 +25980,15 @@ EOF
 
     setupPyBuildFlags = ["--qt" "--xdg"];
 
+    buildInputs = with self; [ nose ];
+
     propagatedBuildInputs = with self; [ pillow prettytable pyyaml dateutil
       gdata requests mechanize feedparser lxml pkgs.gnupg pyqt5 pkgs.libyaml
       simplejson cssselect futures pdfminer termcolor google_api_python_client ];
+
+    checkPhase = ''
+      nosetests
+    '';
 
     meta = {
       homepage = http://weboob.org;
