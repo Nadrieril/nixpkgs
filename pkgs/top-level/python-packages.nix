@@ -25970,17 +25970,19 @@ EOF
   };
 
   weboob = buildPythonPackage rec {
-    name = "weboob-1.1";
+    name = "weboob-1.2";
     disabled = ! isPy27;
 
     src = pkgs.fetchurl {
-      url = "https://symlink.me/attachments/download/324/${name}.tar.gz";
-      sha256 = "0736c5wsck2abxlwvx8i4496kafk9xchkkzhg4dcfbj0isldih6b";
+      url = "https://symlink.me/attachments/download/342/weboob-1.2.tar.gz";
+      sha256 = "1c47isny431s3qsbihxkhxlbm2l9bsif8sviblz20p8yplspwfqy";
     };
 
     setupPyBuildFlags = ["--qt" "--xdg"];
 
-    propagatedBuildInputs = with self; [ pillow prettytable pyyaml dateutil gdata requests mechanize feedparser lxml pkgs.gnupg pyqt4 pkgs.libyaml simplejson cssselect futures pdfminer termcolor ];
+    propagatedBuildInputs = with self; [ pillow prettytable pyyaml dateutil
+      gdata requests mechanize feedparser lxml pkgs.gnupg pyqt5 pkgs.libyaml
+      simplejson cssselect futures pdfminer termcolor google_api_python_client ];
 
     meta = {
       homepage = http://weboob.org;
