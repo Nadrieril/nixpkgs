@@ -19,6 +19,7 @@ let
         ${optionalString (psk != null) ''psk=${psk}''}
         ${optionalString (psk == null) ''key_mgmt=NONE''}
         ${optionalString (priority != null) ''priority=${toString priority}''}
+        ${networkConfig.extraConfig}
       }
     '') cfg.networks)}
   '' else "/etc/wpa_supplicant.conf";
@@ -81,6 +82,13 @@ in {
                 priority value, the sooner the network is matched against the scan results).
                 Within each priority group, networks will be selected based on security
                 policy, signal strength, etc.
+              '';
+            };
+            extraConfig = mkOption {
+              type = types.lines;
+              default = "";
+              description = ''
+                Extra configuration for the network.
               '';
             };
           };
