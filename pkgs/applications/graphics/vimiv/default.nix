@@ -68,6 +68,5 @@ python3Packages.buildPythonApplication rec {
     description = "An image viewer with Vim-like keybindings";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    broken = true;
   };
 }
