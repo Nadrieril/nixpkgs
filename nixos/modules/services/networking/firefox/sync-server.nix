@@ -34,6 +34,8 @@ let
 in
 
 {
+  meta.maintainers = with lib.maintainers; [ nadrieril ];
+
   options = {
     services.firefox.syncserver = {
       enable = mkOption {
