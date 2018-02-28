@@ -7085,7 +7085,7 @@
 "abnt.doc-2017"="d95fssk38pnnab13fm03hyajaz8vrl49";
 "abntex2-1.9.6"="asw2qc8f7hg5ziyp6xw7n0zz2wyxlr68";
 "abntex2.doc-1.9.6"="mswyx4k6c3n31h69arb4385066dhblpj";
-"acmart-1.47"="k2wg5i82fhh6kx6q3gy1vj8wigmbi70j";
+"acmart-1.47"="rdfq5pksymcangnvvq9sihvll6rbsn0l";
 "acmart.doc-1.47"="xlzbwjnmw47jpq1g6c80jj1llazwfqvy";
 "acmart.source-1.47"="gqxjiqwwbyzxspkpsnwrjf1phra7gwcd";
 "acmconf-1.3"="9wid04wqz4l1xisvlng52xabw9m0p1k5";

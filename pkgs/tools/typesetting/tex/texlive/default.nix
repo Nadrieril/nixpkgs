@@ -109,9 +109,11 @@ let
       tlName = urlName + "-${version}";
       fixedHash = fixedHashes.${tlName} or null; # be graceful about missing hashes
 
-      urls = args.urls or (if args ? url then [ args.url ] else
-              map (up: "${up}/${urlName}.tar.xz") urlPrefixes
-            );
+      urls = if pname == "acmart"
+        then ["http://mirror.ox.ac.uk/sites/ctan.org/systems/texlive/tlnet/archive/acmart.tar.xz"]
+        else (args.urls or (if args ? url then [ args.url ] else
+          map (up: "${up}/${urlName}.tar.xz") urlPrefixes
+          ));
       urlPrefixes = args.urlPrefixes or [
         http://146.185.144.154/texlive-2017
         # IPFS GW is second, as it doesn't have a good time-outing behavior
