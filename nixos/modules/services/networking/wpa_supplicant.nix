@@ -228,13 +228,13 @@ in {
             DEVTYPE=
             source /sys/class/net/$i/uevent
             if [ "$DEVTYPE" = "wlan" -o -e /sys/class/net/$i/wireless ]; then
-              ifaces="$ifaces''${ifaces:+ -N} -i$i"
+              ifaces="$ifaces''${ifaces:+ -N} -i$i -c${configFile}"
             fi
           done
         '' else ''
-          ifaces="${concatStringsSep " -N " (map (i: "-i${i}") ifaces)}"
+          ifaces="${concatStringsSep " -N " (map (i: "-i${i} -c${configFile}") ifaces)}"
         ''}
-        exec wpa_supplicant -s -u -D${cfg.driver} -c ${configFile} $ifaces
+        exec wpa_supplicant -s -u -D${cfg.driver} $ifaces
       '';
     };
 
