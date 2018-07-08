@@ -131,7 +131,7 @@ with lib;
       mkIf config.i18n.consoleUseXkbConfig
         (pkgs.runCommand "xkb-console-keymap" { preferLocalBuild = true; } ''
           '${pkgs.ckbcomp}/bin/ckbcomp' -model '${xkbModel}' -layout '${layout}' \
-            -option '${xkbOptions}' -variant '${xkbVariant}' > "$out"
+            -option '${xkbOptions}' -variant '${xkbVariant}' -I '${xkbDir}' > "$out"
         '');
 
     environment.systemPackages =

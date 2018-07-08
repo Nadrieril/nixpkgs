@@ -710,11 +710,11 @@ in
       ];
 
     system.extraDependencies = singleton (pkgs.runCommand "xkb-validated" {
-      inherit (cfg) xkbModel layout xkbVariant xkbOptions;
+      inherit (cfg) xkbModel layout xkbVariant xkbOptions xkbDir;
       nativeBuildInputs = [ pkgs.xkbvalidate ];
       preferLocalBuild = true;
     } ''
-      validate "$xkbModel" "$layout" "$xkbVariant" "$xkbOptions"
+      validate "$xkbModel" "$layout" "$xkbVariant" "$xkbOptions" "$xkbDir"
       touch "$out"
     '');
 
