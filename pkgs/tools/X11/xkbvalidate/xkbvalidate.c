@@ -111,13 +111,14 @@ int main(int argc, char **argv)
     struct xkb_context *ctx;
     struct xkb_rule_names *rdef;
 
-    if (argc != 5) {
-        fprintf(stderr, "Usage: %s model layout variant options\n", argv[0]);
+    if (argc != 6) {
+        fprintf(stderr, "Usage: %s model layout variant options dir\n", argv[0]);
         return EXIT_FAILURE;
     }
 
-    ctx = xkb_context_new(XKB_CONTEXT_NO_ENVIRONMENT_NAMES);
+    ctx = xkb_context_new(XKB_CONTEXT_NO_ENVIRONMENT_NAMES || XKB_CONTEXT_NO_DEFAULT_INCLUDES);
     xkb_context_set_log_fn(ctx, add_log);
+    xkb_context_include_path_append(ctx, argv[5]);
 
     rdef = malloc(sizeof(struct xkb_rule_names));
 
