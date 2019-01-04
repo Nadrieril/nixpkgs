@@ -31,6 +31,9 @@ buildPythonPackage rec {
     sha256 = "1c9z9gid1mbm1cakb2wj6jjkbrmji8y8ac46iqpih9x1h498bhbs";
   };
 
+  # Patch tests for python3 compatibility
+  patches = stdenv.lib.optionals (!isPy27) [ ./weboob-1.3-python3-tests.patch ];
+
   postPatch = ''
     # Disable doctests that require networking:
     sed -i -n -e '/^ *def \+pagination *(.*: *$/ {
@@ -60,7 +63,6 @@ buildPythonPackage rec {
     html2text
     libyaml
     lxml
-    mechanize
     pdfminer
     pillow
     prettytable
@@ -70,7 +72,8 @@ buildPythonPackage rec {
     simplejson
     termcolor
     unidecode
-  ] ++ lib.optionals isPy27 [ futures ];
+  ]
+  ++ lib.optionals isPy27 [ mechanize futures ];
 
   checkPhase = ''
     nosetests
