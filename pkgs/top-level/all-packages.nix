@@ -14948,6 +14948,8 @@ in
 
   nagios = callPackage ../servers/monitoring/nagios { };
 
+  icinga2 = callPackage ../servers/monitoring/icinga2 { };
+
   munin = callPackage ../servers/monitoring/munin { };
 
   monitoring-plugins = callPackage ../servers/monitoring/plugins { };
