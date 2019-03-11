@@ -31,7 +31,7 @@ buildPythonPackage rec {
     }; p' weboob/browser/browsers.py weboob/browser/pages.py
   '';
 
-  setupPyBuildFlags = ["--qt" "--xdg"];
+  setupPyBuildFlags = ["--xdg"];
 
   checkInputs = [ nose ];
 
