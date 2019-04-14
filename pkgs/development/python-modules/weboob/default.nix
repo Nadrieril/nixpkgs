@@ -8,15 +8,12 @@
 
 buildPythonPackage rec {
   pname = "weboob";
-  version = "1.3";
+  version = "1.5";
 
   src = fetchurl {
-    url = "https://symlink.me/attachments/download/356/${pname}-${version}.tar.gz";
-    sha256 = "0m5yh49lplvb57dfilczh65ky35fshp3g7ni31pwfxwqi1f7i4f9";
+    url = "https://git.weboob.org/weboob/weboob/uploads/007b56516cfeeea4d5c7e97fd3a1ba1f/${pname}-${version}.tar.gz";
+    sha256 = "1c9z9gid1mbm1cakb2wj6jjkbrmji8y8ac46iqpih9x1h498bhbs";
   };
-
-  # Patch tests for python3 compatibility
-  patches = stdenv.lib.optionals (!isPy27) [ ./weboob-1.3-python3-tests.patch ];
 
   postPatch = ''
     # Disable doctests that require networking:
